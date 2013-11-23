@@ -373,9 +373,6 @@ void processExit(char *buf, unsigned long len) {
  * @param len the number of bytes to send
  */
 void sendStdin(char *buf, unsigned int len) {
-#ifndef WIN32
-  readyToSend = 0;
-#endif
   sendChunk(len, CHUNKTYPE_STDIN, buf);
 }
 
@@ -383,6 +380,9 @@ void sendStdin(char *buf, unsigned int len) {
  * Sends a stdin-eof chunk to the nailgun server
  */
 void processEof() {
+#ifndef WIN32
+  readyToSend = 0;
+#endif
   sendChunk(0, CHUNKTYPE_STDIN_EOF, buf);
 }
 
